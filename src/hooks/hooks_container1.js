@@ -1,9 +1,15 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
 // [ IMPORTANT : WE DO NOT NEED TO USE combinedReducer]
 import * as Reducer from '../store/hooks_state/hooks_reducer';
 import * as Actions from '../store/actions/actions';
+import Context from '../utils/context';
 
 const hooksContainer1 = () => {
+
+    // implementing Context
+    const context = useContext(Context);
+    console.log('context ============> ', context)
+
 
     // [ ORIGINAL SYNTAX ]
     // const stateValue = useState(0)[0];
@@ -55,14 +61,22 @@ const hooksContainer1 = () => {
         <button onClick={ decrementValue }>-</button>
         <button onClick={ changeuseEffectValue }>Change Use Effect</button>
         <button onClick={ handleDispatchTrue }>Handle True</button>
-        <button onClick={ handleDispatchFalse }>Handle False</button>        
+        <button onClick={ handleDispatchFalse }>Handle False</button>
+        <button onClick={ context.inrmentNumber }>Global +</button>
+        <button onClick={ context.decrementNumber }>Global -</button>
+        <button onClick={ context.handleGlobalContextDispatchTrue }>GlobalRedux_Context_True</button>
+        <button onClick={ context.handleGlobalContextDispatchFalse}>GlobalRedux_Context_False</button>
         <br />
         <div>
             <p>UseEffect Value: { effectValue || 'No Value' } </p>
             <p>Redux Control: { !state.stateprop1 ? 'Redux State is false' : 'Redux State is true' }</p>
             <p>Local State: { stateValue }</p>
+            <p>Global State: { context.gState }</p>
+            <p>GlobalRedux_State: { context.globalReduxState ? 'true' : 'false' }</p>
         </div>
       </div>
+
+     
     );  
 }
 
