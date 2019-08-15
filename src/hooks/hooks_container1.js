@@ -74,6 +74,12 @@ const hooksContainer1 = () => {
             <p>Global State: { context.gState }</p>
             <p>GlobalRedux_State: { context.globalReduxState ? 'true' : 'false' }</p>
         </div>
+
+        <div>
+            <h2>Testing userContext from hooks_form.js</h2>     
+            <p>{ context.useContextChange }</p>
+            <p>{ context.useContextSubmit }</p>
+        </div>
       </div>
 
      

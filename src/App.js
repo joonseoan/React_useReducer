@@ -4,12 +4,14 @@ import Routes from './routes';
 // Highest Component should define the context
 import Context from './utils/context';
 import * as Reducer from './store/hooks_state/hooks_reducer';
+import * as userReducer from './store/hooks_state/user_input_hooks_reducer';
 import * as ACTIONS from './store/actions/actions';
 
 const App = () => {
 
   const [ gState, setGState ] = useState(0);
   const [ globalReduxState, globalDispatch ] = useReducer(Reducer.HooksReducer, Reducer.initialState);
+  const [ globalUserReducer, globalUserDispatch ] = useReducer(userReducer.UserReducer, userReducer.initialState);
 
 
   const inrmentNumber = () => {
@@ -28,6 +30,16 @@ const App = () => {
     globalDispatch(ACTIONS.failure());
   }
 
+  const globalUserReducerChange = e => {
+    globalUserDispatch(ACTIONS.user_input_change(e.target.value));
+}
+
+  const globalUserReducerSubmit = e => {
+      e.preventDefault();
+      e.persist();
+      globalUserDispatch(ACTIONS.user_input_submit(e.target.useContext.value));
+  }
+
   return(
     <div>
       React
@@ -39,7 +51,12 @@ const App = () => {
           // Redux state and actions
           globalReduxState: globalReduxState.stateprop2,
           handleGlobalContextDispatchTrue,
-          handleGlobalContextDispatchFalse
+          handleGlobalContextDispatchFalse,
+
+          useContextChange: globalUserReducer.user_text_change,
+          useContextSubmit: globalUserReducer.user_text_submit,
+          dispatchChange: globalUserReducerChange,
+          dispatchSubmit: globalUserReducerSubmit
 
        }}>
        {/* So every single routing component is able to get value above!!! 
